@@ -23,8 +23,8 @@ def create_music_db():
             cur.execute(
                 """
                 CREATE TABLE IF NOT EXISTS ArtistGenre(
-                    artist_id INTEGER,
-                    genre_id VARCHAR(20),
+                    artist_id INTEGER REFERENCES Artist(id),
+                    genre_id VARCHAR(20) REFERENCES Genre(name),
                     CONSTRAINT pk_artist_genre PRIMARY KEY (artist_id, genre_id)
                 )
                 """
@@ -43,8 +43,8 @@ def create_music_db():
             cur.execute(
                 """
                 CREATE TABLE IF NOT EXISTS ArtistAlbum(
-                    artist_id INTEGER,
-                    album_id INTEGER,
+                    artist_id INTEGER REFERENCES Artist(id),
+                    album_id INTEGER REFERENCES Album(id),
                     CONSTRAINT pk_artist_album PRIMARY KEY (artist_id, album_id)
                 )
                 """
@@ -74,8 +74,8 @@ def create_music_db():
             cur.execute(
                 """
                 CREATE TABLE IF NOT EXISTS SongCollection(
-                    song_id INTEGER,
-                    collection_id INTEGER,
+                    song_id INTEGER REFERENCES Song(id),
+                    collection_id INTEGER REFERENCES Collection(id),
                     CONSTRAINT pk_song_collection PRIMARY KEY (song_id, collection_id)
                 )
                 """
