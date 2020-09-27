@@ -220,3 +220,4 @@ cython_debug/
 Будет удалено .idea/sqldialects.xml
 Будет удалено .idea/sqlpy.iml
 Будет удалено .idea/vcs.xml
+.idea/
