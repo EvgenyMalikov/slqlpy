@@ -19,7 +19,7 @@ def insert_artist(con: str, *args):
 def insert_artist_genre(con: str, couple: set):
     with psycopg2.connect(con) as conn, conn.cursor() as cur:
         for item in couple:
-            cur.execute('INSERT INTO artist_genre (artist_id, genre_id) VALUES (%s, %s);', (item[1], item[0]))
+            cur.execute('INSERT INTO artist_genre (artist_id, genre_id) VALUES (%s, %s);', (item[0], item[1]))
 
 
 def insert_albums(con: str, album_list: list):

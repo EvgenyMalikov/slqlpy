@@ -40,12 +40,10 @@ def order_by_duration_song(con: str) -> list:
         cur.execute(
             """ 
             SELECT name, duration FROM song
-            ORDER BY duration DESC
+            WHERE duration = (SELECT MAX(duration) FROM song);
             """
         )
-        song_list = cur.fetchall()
-    max_duration = max(song_list, key=lambda duration: duration[1])[1]
-    return [song for song in song_list if song[1] == max_duration]
+        return cur.fetchall()
 
 
 def get_song_name(con: str, duration: float) -> list:
@@ -73,7 +71,6 @@ def select_artist_by_name_one_word(con: str) -> list:
         cur.execute(
             """ 
             SELECT name FROM artist;
-            
             """)
         artist_list = cur.fetchall()
         return [artist[0] for artist in artist_list if len(artist[0].split(' ')) == 1]
@@ -87,6 +84,3 @@ def find_text(con: str, text: str) -> list:
             WHERE name LIKE %s ESCAPE '';
             """, (text,))
         return cur.fetchall()
-
-
-

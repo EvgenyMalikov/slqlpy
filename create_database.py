@@ -6,7 +6,6 @@ def create_music_db(connect_):
         with conn.cursor() as cur:
             cur.execute(
                 """
-                
                 CREATE TABLE IF NOT EXISTS Genre(
                     name VARCHAR(20) PRIMARY KEY);
                     
