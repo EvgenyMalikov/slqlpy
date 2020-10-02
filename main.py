@@ -52,12 +52,11 @@ def create_db():
 
 
 if __name__ == '__main__':
-
-    pprint(count_artist_in_genre(CONNECT))
-    pprint(count_song_in_album(CONNECT, 2019, 2020))
-    pprint(count_average_song_in_album(CONNECT))
-    pprint(find_artist_who_dont_release_album(CONNECT, 2020))
-    pprint(find_collection_by_artist(CONNECT, 'Лесбиянки в законе'))
-    pprint(find_album_with_artist_multi_genre(CONNECT, 1))
-    pprint(find_song_not_included_in_collection(CONNECT))
+    # pprint(count_artist_in_genre(CONNECT))
+    # pprint(count_song_in_album(CONNECT, 2019, 2020))
+    # pprint(count_average_song_in_album(CONNECT))
+    # pprint(find_artist_who_dont_release_album(CONNECT, 2020))
+    # pprint(find_collection_by_artist(CONNECT, 'Лесбиянки в законе'))
+    # pprint(find_album_with_artist_multi_genre(CONNECT, 1))
+    # pprint(find_song_not_included_in_collection(CONNECT))
     pprint(find_album_with_highest_number_songs(CONNECT))

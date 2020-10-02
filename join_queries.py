@@ -64,11 +64,10 @@ def find_artist_who_dont_release_album(con: str, year: int) -> list:
     with psycopg2.connect(con) as conn, conn.cursor() as cur:
         cur.execute(
             """
-            SELECT ar.name FROM artist ar
+            SELECT DISTINCT ar.name FROM artist ar
             JOIN artist_album aa on ar.id = aa.artist_id
             JOIN album al on al.id = aa.album_id
-            WHERE release_year != %s
-            GROUP BY ar.name;
+            WHERE release_year != %s;
             """, (year,)
         )
         return cur.fetchall()
@@ -84,14 +83,13 @@ def find_collection_by_artist(con: str, name_artist: str) -> list:
     with psycopg2.connect(con) as conn, conn.cursor() as cur:
         cur.execute(
             """
-            SELECT c.name FROM collection c
+            SELECT DISTINCT c.name FROM collection c
             JOIN song_collection sc on c.id = sc.collection_id
             JOIN song s on sc.song_id = s.id
             JOIN album a on a.id = s.album_id
             JOIN artist_album aa on a.id = aa.album_id
             JOIN artist a2 on a2.id = aa.artist_id
-            WHERE a2.name = %s
-            GROUP BY c.name; 
+            WHERE a2.name = %s;
             """, (name_artist,)
         )
         return cur.fetchall()
@@ -162,10 +160,10 @@ def find_album_with_highest_number_songs(con: str) -> list:
     with psycopg2.connect(con) as conn, conn.cursor() as cur:
         cur.execute(
             """
-            SELECT a.name  FROM album a 
+            SELECT a.name FROM album a 
             JOIN song s on a.id = s.album_id
             GROUP BY a.name
-            HAVING COUNT(s.album_id) = (SELECT MIN(album_id) FROM song)
+            HAVING COUNT(s.album_id) = (SELECT  COUNT(*) count  FROM song GROUP BY album_id ORDER BY count LIMIT 1);
             """
         )
         return cur.fetchall()
